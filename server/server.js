@@ -20,9 +20,13 @@ const app = express();
 
 // Middleware
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'https://pdfconverterio.vercel.app',
+  origin: [
+    process.env.CLIENT_URL,
+    'https://pdfconverterio.vercel.app'
+  ].filter(Boolean), // removes undefined if env not set
   credentials: true
 }));
+
 app.use(express.json());
 
 // Database connection - don't await here, let it connect in the background
